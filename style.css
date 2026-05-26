@@ -1,0 +1,44 @@
+button{
+    display: inline;
+}
+
+p{
+    display: inline;
+    padding: 10px;
+}
+
+.grid_cell{
+    display: grid;
+    background-color: bisque;
+    place-items: center;
+}
+
+.counter{
+    background-color: aquamarine;
+    padding: 10px;
+    display: block;
+}
+
+.counter p{
+    font-size: 3rem;
+    padding: 10px;
+}
+
+.counter button{
+    width: 50px;
+    height: 50px;
+}
+
+.header{
+    display: flex;
+    background-color: black;
+    color: aliceblue;
+    justify-content: flex-end;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+}
