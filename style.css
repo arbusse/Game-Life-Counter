@@ -1,3 +1,7 @@
+body{
+    background-color: black;
+}
+
 button{
     display: inline;
 }
@@ -27,6 +31,7 @@ p{
 .counter button{
     width: 50px;
     height: 50px;
+    font-size: 3rem;
 }
 
 .header{
@@ -40,5 +45,5 @@ p{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    height: 100vh;
+    height: 95vh;
 }
