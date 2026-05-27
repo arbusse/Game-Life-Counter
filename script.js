@@ -15,6 +15,7 @@ class Counter{
         //create counter elements
         this.background = document.createElement('div');
         this.group = document.createElement('div');
+        this.name = document.createElement('h1');
         this.minus = document.createElement('button');
         this.text = document.createElement('p');
         this.plus = document.createElement('button');
@@ -28,6 +29,8 @@ class Counter{
 
         //give object an id and class
         this.group.className = "counter";
+
+        this.name.textContent = "Player "+Controller.players
     
         //add text and functionality to - button; Call decrement on click
         this.minus.textContent = "-";
@@ -36,14 +39,18 @@ class Counter{
         //update number text to match count
         this.text.textContent = this.count;
 
-        //add text and functionality to + button; Call increment on clcik
+        //add text and functionality to + button; Call increment on click
         this.plus.textContent = "+";
         this.plus.addEventListener('click', this.increment.bind(this));
+
+        //set cell to default color
+        this.setColor();
 
         //group elements together as children of container
         this.group.appendChild(this.minus);
         this.group.appendChild(this.text);
         this.group.appendChild(this.plus);
+        this.background.appendChild(this.name);
         this.background.appendChild(this.group);
 
         //attach contianer to html body
@@ -60,6 +67,35 @@ class Counter{
     decrement(){
         this.count--;
         this.text.textContent = this.count;    
+    }
+
+    setColor(){
+        switch(Controller.players){
+            case 1:
+                this.background.style.backgroundColor = "rgb(64, 105, 218)";
+                this.group.style.backgroundColor = "rgb(0, 36, 136)";
+                break;
+            case 2:
+                this.background.style.backgroundColor = "rgb(218, 64, 64)";
+                this.group.style.backgroundColor = "rgb(122, 0, 0)";
+                break;
+            case 3:
+                this.background.style.backgroundColor = "rgb(69, 218, 64)";
+                this.group.style.backgroundColor = "rgb(3, 83, 0)";
+                break;
+            case 4:
+                this.background.style.backgroundColor = "rgb(218, 190, 64)";
+                this.group.style.backgroundColor = "rgb(131, 107, 0)";
+                break;
+            case 5:
+                this.background.style.backgroundColor = "rgb(156, 64, 218)";
+                this.group.style.backgroundColor = "rgb(65, 0, 109)";
+                break;
+            case 6:
+                this.background.style.backgroundColor = "rgb(64, 218, 198)";
+                this.group.style.backgroundColor = "rgb(0, 104, 90)";
+                break;
+        }
     }
 };
 
