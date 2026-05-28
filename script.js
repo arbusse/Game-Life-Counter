@@ -1,6 +1,7 @@
 const Controller = {
     players: 0,
     counters: [], 
+    format: "60-Card",
     addPlayer(){
         this.players++; 
     },
@@ -102,9 +103,16 @@ class Counter{
 addPlayer = () =>{
     if(Controller.players < 6){
         Controller.addPlayer();
-        const ctr = new Counter();
-        Controller.counters.push(ctr);
-        ArrangeColumns(container);
+        if(Controller.format === "Edh"){
+            const ctr = new Counter(40);
+            Controller.counters.push(ctr);
+        }
+        else{
+            const ctr = new Counter();
+            Controller.counters.push(ctr);
+        }
+        
+        ArrangeColumns();
     }
 }
 
@@ -115,6 +123,19 @@ removePlayer = () =>{
         ctr.background.remove();
         ArrangeColumns(container);
     }
+}
+
+reset = ()=>{
+    for(let i =0; i < Controller.counters.length; i++){
+            const counter = Controller.counters[i];
+            if(Controller.format === "60-Card"){
+                            counter.count = 20;
+            }
+            else if(Controller.format === "Edh"){
+                            counter.count = 40;
+            }
+            counter.text.textContent = counter.count;
+        }
 }
 
 ResetAreas = () =>{
@@ -166,7 +187,29 @@ ArrangeColumns = () =>{
     }
 }
 
+getFormatSelect = () => {
+    let fs = document.getElementById("format-select");
+    if(fs.checked ){
+        for(let i =0; i < Controller.counters.length; i++){
+            const counter = Controller.counters[i];
+            counter.count += 20;
+            counter.text.textContent = counter.count;
+            Controller.format = "Edh";
+        }
+    }
+    else{
+        for(let i =0; i < Controller.counters.length; i++){
+            const counter = Controller.counters[i];
+            counter.count -= 20;
+            counter.text.textContent = counter.count;
+            Controller.format = "60-Card";
+        }
+    }
+}
+
 //create counter instance on content load
 document.addEventListener('DOMContentLoaded', () => {
     addPlayer();
 });
+
+document.getElementById("format-select").addEventListener('change', () => {getFormatSelect()});

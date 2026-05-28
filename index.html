@@ -2,14 +2,28 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet", href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
+     
     <div class = "header">
+    <button onclick="reset()">Reset</button>
+
+    <p>60-card</p>
+    <label class="switch">
+        <input type="checkbox" id="format-select">
+        <span class="slider"></span>
+    </label> 
+    <p>Edh</p>
+
     <button onclick="addPlayer()">Add Player</button>
     <button onclick="removePlayer()">Remove Player</button>
+    
+    
+
     </div>
 
     <div class="container", id="container"></div>
