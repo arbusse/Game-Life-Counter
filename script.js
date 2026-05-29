@@ -45,7 +45,6 @@ class Counter{
 
         //update number text to match count make text editable
         this.text.textContent = this.count;
-        this.text.contentEditable = true;
         
 
 

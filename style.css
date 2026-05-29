@@ -49,7 +49,7 @@ textarea{
     display: block;
 }
 
-.counter input{
+.counter p{
     font-size: 3rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
@@ -64,11 +64,7 @@ textarea{
     font-size: 3rem;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+
 
 .header{
     display: flex;
