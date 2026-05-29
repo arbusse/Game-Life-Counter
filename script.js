@@ -16,7 +16,7 @@ class Counter{
         //create counter elements
         this.background = document.createElement('div');
         this.group = document.createElement('div');
-        this.name = document.createElement('h1');
+        this.name = document.createElement('textarea');
         this.minus = document.createElement('button');
         this.text = document.createElement('p');
         this.plus = document.createElement('button');
@@ -31,14 +31,23 @@ class Counter{
         //give object an id and class
         this.group.className = "counter";
 
+        //create name label, make it editable, disable spell check
+        this.name.rows = 2;
+        this.name.maxLength = 20;
         this.name.textContent = "Player "+Controller.players
+        this.name.contentEditable = true;
+        this.name.spellcheck = false;
+        this.name.addEventListener('click', () => this.name.select())
     
         //add text and functionality to - button; Call decrement on click
         this.minus.textContent = "-";
         this.minus.addEventListener('click', this.decrement.bind(this));
 
-        //update number text to match count
+        //update number text to match count make text editable
         this.text.textContent = this.count;
+        this.text.contentEditable = true;
+        
+
 
         //add text and functionality to + button; Call increment on click
         this.plus.textContent = "+";
@@ -100,6 +109,7 @@ class Counter{
     }
 };
 
+
 addPlayer = () =>{
     if(Controller.players < 6){
         Controller.addPlayer();
@@ -111,7 +121,6 @@ addPlayer = () =>{
             const ctr = new Counter();
             Controller.counters.push(ctr);
         }
-        
         ArrangeColumns();
     }
 }
