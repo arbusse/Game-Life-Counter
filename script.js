@@ -16,10 +16,15 @@ class Counter{
         //create counter elements
         this.background = document.createElement('div');
         this.group = document.createElement('div');
+        this.under = document.createElement('div')
         this.name = document.createElement('textarea');
         this.minus = document.createElement('button');
         this.text = document.createElement('p');
         this.plus = document.createElement('button');
+
+        this.smallminus = document.createElement('button');
+        this.input = document.createElement('input');
+        this.smallplus = document.createElement('button');
 
         //initialize count variable
         this.count = count;
@@ -30,6 +35,8 @@ class Counter{
 
         //give object an id and class
         this.group.className = "counter";
+
+        this.under.className ="under";
 
         //create name label, make it editable, disable spell check
         this.name.rows = 2;
@@ -52,6 +59,24 @@ class Counter{
         this.plus.textContent = "+";
         this.plus.addEventListener('click', this.increment.bind(this));
 
+        //add text and functionality to - button; Call decrement on click
+        this.smallminus.textContent = "-";
+        this.smallminus.addEventListener('click', () => {
+            this.decrement(this.input.valueAsNumber)
+            this.input.value = '';
+        });
+
+        //set up number input
+        this.input.type = "number";
+        this.input.min = 0;
+
+        //add text and functionality to + button; Call increment on click
+        this.smallplus.textContent = "+";
+        this.smallplus.addEventListener('click', () => {
+            this.increment(this.input.valueAsNumber)
+            this.input.value = '';
+        });
+
         //set cell to default color
         this.setColor();
 
@@ -59,23 +84,40 @@ class Counter{
         this.group.appendChild(this.minus);
         this.group.appendChild(this.text);
         this.group.appendChild(this.plus);
+        this.under.appendChild(this.smallminus);
+        this.under.appendChild(this.input);
+        this.under.appendChild(this.smallplus);
         this.background.appendChild(this.name);
         this.background.appendChild(this.group);
+        this.background.appendChild(this.under);
+
 
         //attach contianer to html body
         document.getElementById("container").appendChild(this.background);
     }
 
     //increase count by one on button press
-    increment(){
-        this.count++;
-        this.text.textContent = this.count;    
+    increment(num=1){
+        if(num === NaN){
+            return;
+        }
+        else{
+            this.count += num;
+            this.text.textContent = this.count; 
+        }
+           
     }
 
     //decrease count by one on button press
-    decrement(){
-        this.count--;
-        this.text.textContent = this.count;    
+    decrement(num=1){
+        if(num === NaN){
+            return;
+        }
+        else{
+            this.count -= num;
+            this.text.textContent = this.count;    
+        }
+        
     }
 
     setColor(){
@@ -217,6 +259,7 @@ getFormatSelect = () => {
 
 //create counter instance on content load
 document.addEventListener('DOMContentLoaded', () => {
+    addPlayer();
     addPlayer();
 });
 
