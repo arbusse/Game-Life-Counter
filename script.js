@@ -21,6 +21,10 @@ class Counter{
         this.minus = document.createElement('button');
         this.text = document.createElement('p');
         this.plus = document.createElement('button');
+        this.picker = document.createElement('input');
+        this.menugroup = document.createElement('div')
+        this.settings = document.createElement('button');
+        this.menu =document.createElement('div');
 
         this.smallminus = document.createElement('button');
         this.input = document.createElement('input');
@@ -48,7 +52,7 @@ class Counter{
     
         //add text and functionality to - button; Call decrement on click
         this.minus.textContent = "-";
-        this.minus.addEventListener('click', this.decrement.bind(this));
+        this.minus.addEventListener('click', ()=>{this.decrement(1)});
 
         //update number text to match count make text editable
         this.text.textContent = this.count;
@@ -57,7 +61,7 @@ class Counter{
 
         //add text and functionality to + button; Call increment on click
         this.plus.textContent = "+";
-        this.plus.addEventListener('click', this.increment.bind(this));
+        this.plus.addEventListener('click', () =>{this.increment(1)});
 
         //add text and functionality to - button; Call decrement on click
         this.smallminus.textContent = "-";
@@ -77,6 +81,15 @@ class Counter{
             this.input.value = '';
         });
 
+        this.menugroup.className = "settings";
+        this.menu.className = "menu";
+        this.menu.style.display = "none";
+        this.settings.textContent = "settings";
+        this.settings.addEventListener('click', ()=>{this.toggleMenu()})
+
+
+        this.picker.type = "color";
+
         //set cell to default color
         this.setColor();
 
@@ -87,6 +100,12 @@ class Counter{
         this.under.appendChild(this.smallminus);
         this.under.appendChild(this.input);
         this.under.appendChild(this.smallplus);
+
+        this.menu.appendChild(this.picker)
+        this.menugroup.appendChild(this.settings);
+        this.menugroup.appendChild(this.menu);
+        this.background.appendChild(this.menugroup);
+        
         this.background.appendChild(this.name);
         this.background.appendChild(this.group);
         this.background.appendChild(this.under);
@@ -97,11 +116,8 @@ class Counter{
     }
 
     //increase count by one on button press
-    increment(num=1){
-        if(num === NaN){
-            return;
-        }
-        else{
+    increment(num){
+        if(Number.isFinite(num)){
             this.count += num;
             this.text.textContent = this.count; 
         }
@@ -109,15 +125,23 @@ class Counter{
     }
 
     //decrease count by one on button press
-    decrement(num=1){
-        if(num === NaN){
-            return;
-        }
-        else{
+    decrement(num){
+        if(Number.isFinite(num)){
             this.count -= num;
-            this.text.textContent = this.count;    
+            this.text.textContent = this.count; 
         }
         
+    }
+
+    toggleMenu  = () =>{
+        if(this.menu.style.display === "none"){
+            this.menu.style.display = "block";
+        }
+        else{
+            this.menu.style.display = "none";
+        }
+        this.menugroup.style.marginBottom = "auto";
+    
     }
 
     setColor(){
@@ -256,6 +280,7 @@ getFormatSelect = () => {
         }
     }
 }
+
 
 //create counter instance on content load
 document.addEventListener('DOMContentLoaded', () => {
