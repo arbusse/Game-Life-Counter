@@ -29,7 +29,7 @@ textarea{
     outline: transparent;
     text-align: center;
     font-weight: bold;
-    width: 90%;
+    width: 80%;
     
 }
 
@@ -134,17 +134,59 @@ input::-webkit-inner-spin-button {
     margin-bottom: auto;
 }
 
+
 .menu{
   position: absolute;
   top: 100%;
   right: 0%;
-  display: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 25px 100px;
+  justify-items: center;
+  gap: 0;
   padding: 20px;
+  min-height: 250%;
+  min-width: 250%;
+  max-height: 1000%;
+  max-width: 500%;
+  
+  overflow-y: auto;
   background-color: white;
 }
 
-.settings button{
+.menu button{
+  font-size: 1rem;
+  border: transparent;
+
+}
+.menu button:hover{
+  background-color: darkgrey;
+}
+
+.settingsbutton{
   align-self: flex-end;
+  border: transparent;
+  outline: transparent;
+  background-color: transparent;
+  color: white;
+  font-size: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 10px;
+}
+
+.settingsbutton:hover{
+  font-weight: bold;
+}
+
+.settingsbutton:focus{
+  font-weight: bold;
+}
+
+
+.themegroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
 }
 
 .switch {
@@ -201,4 +243,9 @@ input:checked + .slider:before {
 
 .slider:before {
   border-radius: 50%;
+}
+
+input[type="color"]{
+  width: 100px;
+  height: 100px;
 }

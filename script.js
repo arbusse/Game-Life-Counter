@@ -21,10 +21,25 @@ class Counter{
         this.minus = document.createElement('button');
         this.text = document.createElement('p');
         this.plus = document.createElement('button');
+
+
         this.picker = document.createElement('input');
         this.menugroup = document.createElement('div')
         this.settings = document.createElement('button');
         this.menu =document.createElement('div');
+        this.colorbutton = document.createElement('button');
+        this.themebutton = document.createElement('button');
+        this.menuheader = document.createElement('div');
+        this.themegroup = document.createElement('div');
+
+        for(let i = 0; i < 10; i++){
+            this.image = document.createElement('img');
+            this.image.width = "100";
+            this.image.height = "100";
+            this.image.src = "dog.avif";
+            this.themegroup.appendChild(this.image);
+        }
+
 
         this.smallminus = document.createElement('button');
         this.input = document.createElement('input');
@@ -32,6 +47,8 @@ class Counter{
 
         //initialize count variable
         this.count = count;
+
+        this.menucontent = [this.settings, this.menu, this.picker];
 
         //give wrapper class for styling
         this.background.className = "grid_cell";
@@ -84,11 +101,27 @@ class Counter{
         this.menugroup.className = "settings";
         this.menu.className = "menu";
         this.menu.style.display = "none";
-        this.settings.textContent = "settings";
+        this.settings.className = "settingsbutton"
+        this.settings.textContent = '\u2026';
         this.settings.addEventListener('click', ()=>{this.toggleMenu()})
+
+        this.themegroup.style.display = "none";
+        this.themegroup.className = "themegroup";
+
+        this.menuheader.className = "menuheader";
+
+
+        this.colorbutton.textContent = "Color";
+        this.colorbutton.className = "menucontent"
+        this.colorbutton.addEventListener('click', ()=>{this.showColorMenu()})
+        this.themebutton.textContent = "Theme";
+        this.themebutton.className = "menucontent"
+        this.themebutton.addEventListener('click', ()=>{this.showThemeMenu()})
+
 
 
         this.picker.type = "color";
+        this.picker.className = "menucontent";
 
         //set cell to default color
         this.setColor();
@@ -101,7 +134,11 @@ class Counter{
         this.under.appendChild(this.input);
         this.under.appendChild(this.smallplus);
 
-        this.menu.appendChild(this.picker)
+        this.menuheader.appendChild(this.colorbutton);
+        this.menuheader.appendChild(this.themebutton);
+        this.menu.appendChild(this.menuheader);
+        this.menu.appendChild(this.picker);
+        this.menu.appendChild(this.themegroup);
         this.menugroup.appendChild(this.settings);
         this.menugroup.appendChild(this.menu);
         this.background.appendChild(this.menugroup);
@@ -130,18 +167,26 @@ class Counter{
             this.count -= num;
             this.text.textContent = this.count; 
         }
-        
     }
 
     toggleMenu  = () =>{
         if(this.menu.style.display === "none"){
-            this.menu.style.display = "block";
-        }
+            this.menu.style.display = "grid";        }
         else{
             this.menu.style.display = "none";
         }
         this.menugroup.style.marginBottom = "auto";
     
+    }
+    
+    showColorMenu(){
+        this.themegroup.style.display = "none";
+        this.picker.style.display = "block";
+    }
+
+    showThemeMenu(){
+        this.themegroup.style.display = "grid";
+        this.picker.style.display = "none";
     }
 
     setColor(){
@@ -281,6 +326,29 @@ getFormatSelect = () => {
     }
 }
 
+closeMenus = ()=>{
+    for(let i=0; i < Controller.counters.length; i++){
+        const counter = Controller.counters[i];
+        if(counter.menu.style.display = "grid"){
+            counter.toggleMenu();
+        }
+    }
+}
+
+document.addEventListener('click', (event)=>{
+    let menus = [];
+    let content = Array.from(document.getElementsByClassName("menucontent"));
+    for(let i = 0; i < Controller.counters.length; i++){
+        const counter = Controller.counters[i];
+        menus.push(counter.menu);
+        menus.push(counter.settings);
+    }
+    
+    if (!menus.includes(event.target) && !content.includes(event.target)) {
+    closeMenus();
+  }
+
+})
 
 //create counter instance on content load
 document.addEventListener('DOMContentLoaded', () => {
